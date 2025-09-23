@@ -1,0 +1,12 @@
+{
+  "name": "il-xu-tiktok",
+  "version": "1.0.0",
+  "description": "Shop xu TikTok",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
