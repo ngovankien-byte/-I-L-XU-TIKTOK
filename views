@@ -20,3 +20,61 @@
   </form>
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quản lý đơn hàng</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h2>Xin chào admin: <%= admin %></h2>
+  <form method="post" action="/admin/logout"><button>Đăng xuất</button></form>
+  <h3>Danh sách đơn hàng</h3>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>ID</th><th>TikTok</th><th>Phone</th><th>Xu</th><th>Số tiền</th><th>QR</th><th>Trạng thái</th><th>Thời gian</th><th>Thao tác</th>
+    </tr>
+    <% orders.forEach(o => { %>
+    <tr>
+      <td><%= o.id %></td>
+      <td><%= o.tiktok_id %></td>
+      <td><%= o.phone %></td>
+      <td><%= o.coins %></td>
+      <td><%= o.amount %></td>
+      <td><img src="<%= o.qr %>" width="80"></td>
+      <td><%= o.status %></td>
+      <td><%= new Date(o.createdAt).toLocaleString() %></td>
+      <td>
+        <form method="post" action="/admin/order/<%= o.id %>/status">
+          <select name="status">
+            <option value="pending" <%= o.status==='pending'?'selected':'' %>>Chờ</option>
+            <option value="done" <%= o.status==='done'?'selected':'' %>>Xong</option>
+            <option value="cancel" <%= o.status==='cancel'?'selected':'' %>>Hủy</option>
+          </select>
+          <button type="submit">Cập nhật</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </table>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chi tiết đơn hàng</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h2>Chi tiết đơn hàng #<%= order.id %></h2>
+  <p>ID TikTok: <b><%= order.tiktok_id %></b></p>
+  <p>Số điện thoại: <b><%= order.phone %></b></p>
+  <p>Số xu: <b><%= order.coins %></b></p>
+  <p>Số tiền cần chuyển: <b><%= order.amount %> VND</b></p>
+  <img src="<%= order.qr %>" width="200"><br>
+  <p>Ghi chú chuyển khoản: <b>DH-<%= order.createdAt %></b></p>
+  <p>Trạng thái: <b><%= order.status %></b></p>
+  <p>Liên hệ Zalo: <a href="<%= zalo %>"><%= zalo %></a></p>
+  <a href="/">Quay lại trang chủ</a>
+</body>
+</html>
